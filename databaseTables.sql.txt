@@ -1,0 +1,37 @@
+CREATE TABLE users ( cpr BIGINT PRIMARY KEY  ,
+                   name VARCHAR , 
+                   email VARCHAR ,
+                   role VARCHAR, 
+                   city VARCHAR
+);
+
+CREATE TABLE chat ( cid int PRIMARY KEY  ,
+                   ucpr BIGINT , 
+                   chatwith BIGINT
+);
+
+CREATE TABLE message ( mid int PRIMARY KEY  ,
+                   senderId BIGINT , 
+                   receiverId BIGINT ,
+                   mdate date, 
+                   mtext VARCHAR
+);
+
+CREATE TABLE post ( pid int PRIMARY KEY  ,
+                   creator BIGINT , 
+                   content VARCHAR ,
+                   type VARCHAR
+);
+
+CREATE TABLE petition ( pid int PRIMARY KEY  ,
+                   creator BIGINT ,
+                   pdate date,
+                   content VARCHAR ,
+                   approved boolean,
+                   approvedBy BIGINT,
+                   numOfVotes int
+                   
+);
+
+
+
