@@ -11506,11 +11506,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Diego H\\Desktop\\Tier2\\Tier2.csproj",
+      "projectUniqueName": "C:\\Users\\Diego H\\Desktop\\Kommunity\\System\\Tier2\\Tier2.csproj",
       "projectName": "Tier2",
-      "projectPath": "C:\\Users\\Diego H\\Desktop\\Tier2\\Tier2.csproj",
+      "projectPath": "C:\\Users\\Diego H\\Desktop\\Kommunity\\System\\Tier2\\Tier2.csproj",
       "packagesPath": "C:\\Users\\Diego H\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Diego H\\Desktop\\Tier2\\obj\\",
+      "outputPath": "C:\\Users\\Diego H\\Desktop\\Kommunity\\System\\Tier2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

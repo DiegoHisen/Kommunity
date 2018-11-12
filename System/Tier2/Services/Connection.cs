@@ -7,8 +7,8 @@ namespace Tier2.Services
 {
     public class Connection
     {
-        public const string url = "localhost";
-        public const int port = 8888;
+        public const string IP = "localhost";
+        public const int PORT = 8888;
 
         // Defining a client socket and input/output streams
         public TcpClient client;
@@ -21,7 +21,7 @@ namespace Tier2.Services
             try
             {
                 // Initializing the socket and input/output streams
-                client = new TcpClient(url, port);
+                client = new TcpClient(IP, PORT);
                 sr = new StreamReader(client.GetStream());
                 sw = new StreamWriter(client.GetStream());
             }

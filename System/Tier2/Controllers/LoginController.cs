@@ -17,10 +17,10 @@ namespace Tier2.Controllers
 
         }
 
-        [HttpGet("{cpr}")]
-        public ActionResult<User> GetBycpr(long cpr, string pwd)
+        [HttpPost]
+        public ActionResult<User> GetBycpr(User user)
         {
-            var result = Login.findUser(cpr, pwd);
+            var result = Login.findUser(user);
             if (result == null)
             {
                 return NotFound();

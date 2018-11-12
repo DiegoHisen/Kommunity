@@ -7,18 +7,13 @@ namespace Tier2.Services
     {
 
 
-        public static User findUser(long cpr, string pwd)
+        public static User findUser(User user)
         {
             // Initialize a new socket connection to communicate with the database server 
             Connection con = new Connection();
 
-            // Create a User object with given CPR and password to send it to the database server
-            User u = new User();
-            u.cpr = cpr;
-            u.password = pwd;
-
             // Convert the object to Json string and send it
-            string json = JsonConvert.SerializeObject(u);
+            string json = JsonConvert.SerializeObject(user);
             con.sw.WriteLine(json);
             con.sw.Flush();
 
@@ -35,8 +30,8 @@ namespace Tier2.Services
                 string result = fromServer.Substring(2);
 
                 // Convert the responce from Json to User object and return it
-                User user = JsonConvert.DeserializeObject<User>(result);
-                return user;
+                User u = JsonConvert.DeserializeObject<User>(result);
+                return u;
 
             }
             catch
