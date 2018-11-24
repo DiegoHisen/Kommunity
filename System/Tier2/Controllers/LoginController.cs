@@ -20,7 +20,7 @@ namespace Tier2.Controllers
         [HttpPost]
         public ActionResult<User> GetBycpr(User user)
         {
-            var result = Login.findUser(user);
+            var result = Service.findUser(user);
             if (result == null)
             {
                 return NotFound();
