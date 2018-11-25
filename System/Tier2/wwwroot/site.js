@@ -10,12 +10,12 @@ $('#login').on('click', function () {
 
     // Call the Web API with ajax 
     $.ajax({
-        type: "POST",
+        type: "GET",                      // Changed from POST to GET, Not working currently.
         accepts: "application/json",
-        url: "kommunity/login",
+        url: "kommunity/home",
         contentType: "application/json",
         data: JSON.stringify(user),
-
+        cache: false,
         success: function (result) {
             // ToDo, replace code here with redirecting the user to the home page
             alert("Welcome " + result.name);
@@ -26,3 +26,5 @@ $('#login').on('click', function () {
     });
 
 });
+
+// Implement event handler for signup button
