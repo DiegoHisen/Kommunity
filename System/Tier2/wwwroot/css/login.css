@@ -1,7 +1,7 @@
 body {
     margin: auto;
     color: #fff;
-    background-image: url(city.jpg);
+    background-image: url('images/city.jpg');
    background-repeat: no-repeat;
     background-size: cover;
     font: 600 16px/18px 'Open Sans', sans-serif;
