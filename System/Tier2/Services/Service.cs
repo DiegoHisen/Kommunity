@@ -16,10 +16,10 @@ namespace Tier2.Services
             Connection con = new Connection();
 
             // Send the service name so the DatabaseServer knows what to expect
-            // string commandName = "findUser";
-            // con.sw.WriteLine(commandName);
+            string commandName = "findUser";
+            con.sw.WriteLine(commandName);
             // read confirmation from server
-            // con.sr.ReadLine();
+            con.sr.ReadLine();
 
             // Convert the object to Json string and send it
             string json = JsonConvert.SerializeObject(user);
