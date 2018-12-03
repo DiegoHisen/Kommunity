@@ -12,7 +12,7 @@ import model.UserDetails;
 
 public class Connection
 {
-//	private static Tier3Controller controller;
+	private static Tier3Controller controller;
 	private static Socket s;
 	private static DataInputStream is;
 	private static DataOutputStream os;
@@ -26,6 +26,23 @@ public class Connection
 		Connection.os = new DataOutputStream(s.getOutputStream());
 	
 		
+	}
+	
+	public void Command() throws IOException
+	{
+		String input = Connection.inputConnection();
+		if(input == "findUser")
+		{
+			this.loginConnection();
+		}
+		else if(input == "signup")
+		{
+			this.registerConnection();
+		}
+		else
+		{
+			System.out.println("Error");
+		}
 	}
 	
 	
@@ -49,17 +66,17 @@ public class Connection
 		System.out.println("Response sent");
 	}
 	
-//	public  void registerConnection() throws IOException
-//	{
-//		Gson gson = new Gson();
-//		
-//		UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
-//		
-//		UserDetails result = controller.createAccount(response);
-//		
-//		Connection.OutputConnection(result);
-//		
-//	}
+	public  void registerConnection() throws IOException
+	{
+		Gson gson = new Gson();
+		
+		UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
+		
+		UserDetails result = controller.createAccount(response);
+		
+		Connection.OutputConnection(result);
+		
+	}
 	
 	
 	
@@ -68,17 +85,11 @@ public class Connection
 
 		Gson gson = new Gson();
 		
-		String fromClient = Connection.inputConnection();
+		UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
 		
-		System.out.println("This json is from client:"+fromClient);
-
-		UserDetails response = gson.fromJson(fromClient, UserDetails.class);
+		UserDetails result = controller.checkId_password(response);
 		
-		System.out.println("This json is from client:"+response);
-		
-//		UserDetails result = controller.checkId_password(response);
-		
-//		Connection.OutputConnection(result);
+		Connection.OutputConnection(result);
 	}
 	
 }
