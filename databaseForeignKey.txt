@@ -1,0 +1,20 @@
+ALTER TABLE chat
+ADD FOREIGN KEY (ucpr) REFERENCES users(cpr);
+
+ALTER TABLE chat
+ADD FOREIGN KEY (chatwith) REFERENCES users(cpr);
+
+ALTER TABLE message
+ADD FOREIGN KEY (senderid) REFERENCES users(cpr);
+
+ALTER TABLE message
+ADD FOREIGN KEY (receiverid) REFERENCES users(cpr);
+
+ALTER TABLE petition
+ADD FOREIGN KEY (creator) REFERENCES users(cpr);
+
+ALTER TABLE post
+ADD FOREIGN KEY (creator) REFERENCES users(cpr);
+
+ALTER TABLE message
+ADD FOREIGN KEY(chatid) REFERENCES chat(cid);
