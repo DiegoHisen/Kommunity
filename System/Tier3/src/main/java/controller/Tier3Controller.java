@@ -13,35 +13,10 @@ public class Tier3Controller implements ITier3
 	
 	public Tier3Controller()
 	{
-		this.createCitizenDatabase();
-	}
-
-	@Override
-	public void createCitizenDatabase() 
-	{
-
-		Citizen citizen = new Citizen("1207883009");
-		Citizen citizen1 = new Citizen("1105823019");
-		Citizen citizen2 = new Citizen("1007912211");
-		Citizen citizen3 = new Citizen("1505772008");
-		Citizen citizen4 = new Citizen("2201413223");
-		Citizen citizen5 = new Citizen("1207883009");
-		
-		
-		 Session session = databaseFactory.openSession();
-		 session.beginTransaction();
-		 session.save(citizen);
-		 session.save(citizen1);
-		 session.save(citizen2);
-		 session.save(citizen3);
-		 session.save(citizen4);
-		 session.save(citizen5);
-		 
-		 session.getTransaction().commit();
-		 session.close();
 		
 	}
 
+	
 	@Override
 	public boolean checkId(String cpr) 
 	{
@@ -63,16 +38,17 @@ public class Tier3Controller implements ITier3
 		
 
 	@Override
-	public void createAccount(String cpr, String password, String name, String email, String role, City city) 
+	public UserDetails createAccount(UserDetails user) 
 	{
-		if (this.checkId(cpr)==true)
+		if (this.checkId(user.getCpr())==true)
 		{
 			Session session = systemFactory.openSession();
 			session.beginTransaction();
-			UserDetails user = new UserDetails(cpr,password,name,email,role,city);
+			UserDetails databaseUser = user;
 			session.save(user);
 			session.getTransaction().commit();
 			session.close();
+			return databaseUser;
 			
 			
 		}
@@ -80,23 +56,26 @@ public class Tier3Controller implements ITier3
 		else
 		{
 			System.out.println("Id is invalid");
+			return null;
+			
 		}
 	}
 
 	@Override
-	public boolean checkId_password(String cpr, String password) 
+	public UserDetails checkId_password(UserDetails user) 
 	{
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
-		UserDetails user = session.get(UserDetails.class, cpr);
+		UserDetails databaseUser = session.get(UserDetails.class, user.getCpr());
 		
-		if(user.getCpr()==cpr && user.GetPassword() == password)
+		if(databaseUser.getCpr()==user.getCpr() && databaseUser.GetPassword() == user.GetPassword())
 		{
-			return true;
+			return databaseUser;
 		}
 		else
 		{
-			return false;
+			System.out.println("Id or password is invalid");
+			return null;
 		}
 		
 	}
