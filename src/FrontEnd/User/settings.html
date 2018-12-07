@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kommunity</title>
+    <link href="../css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <script src="../js/bootstrap.js"></script>
+    <script src="../css/jquery/jquery.min.js"></script>
+    <script src="../css/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+</head>
+
+<body>
+   <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #93cec0"> 
+               <div class="container"> <a class="navbar-brand" href="../User/userindex.html"><img class="img-responsive" src="../css/images/logo.png" style="height: 70px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li><div class="btn-group" role="group">
+                        <a class="btn btn-secondary dropdown-toggle" href="userindex.html" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">News</a>
+                       <div class="dropdown-menu" aria-labelledby="News">
+                            <a class="dropdown-item" href="../News/events.html">Events</a> 
+                            <a class="dropdown-item" href="../News/job.html">Jobs</a>
+                            <a class="dropdown-item" href="../News/traffic.html">Traffic</a> 
+                            <a class="dropdown-item" href="../News/infra.html">Infrastructure</a>
+                            <a class="dropdown-item" href="../News/food.html">Food</a>  
+                           <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="../News/post.html">Post</a></div>
+                        </div></li>
+                    
+                     <li><div class="btn-group" role="group">
+                       <a class="btn btn-secondary dropdown-toggle" href="vote.html" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Vote</a>
+                         <div class="dropdown-menu" aria-labelledby="Vote">
+                            <a class="dropdown-item" href="../User/vote.html">Vote</a> 
+                            <a class="dropdown-item" href="../User/suggest.html">Suggest</a>
+                         </div></div></li>
+                    
+                           <li><div class="btn-group" role="group">
+                        <button id="buysell" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Buy & Sell </button>
+                        <div class="dropdown-menu" aria-labelledby="buysell">
+                            <a class="dropdown-item" href="../User/buy.html">Buy</a> 
+                            <a class="dropdown-item" href="../User/sell.html">Sell</a>
+                               </div></div></li>
+                    
+                     <li><div class="btn-group" role="group">
+                        <button id="account" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Personal</button>
+                        <div class="dropdown-menu" aria-labelledby="account">
+                             <a class="dropdown-item" href="../User/messages.html">Messages</a>
+                            <a class="dropdown-item" href="../User/settings.html">Settings</a> 
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Log out</a>
+                         </div></div></li>
+                </ul></div> 
+                        <div class="card-body">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for..."> <span class="input-group-btn">
+                  <button class="btn btn-search" type="button">Go!</button>
+                </span> </div>
+                    </div></div>
+    </nav>
+    
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-12">
+                <br/> <br />
+                <!-- Blog Post -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">Settings</h2>
+                        
+                        <h3>Change your password</h3>
+                         <div class="modal-body form-horizontal">
+        <div class="control-group">
+            <label for="current_password" class="control-label">Current Password</label>
+            <div class="controls">
+                <input type="password" name="current_password">
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="new_password" class="control-label">New Password</label>
+            <div class="controls">
+                <input type="password" name="new_password">
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="confirm_password" class="control-label">Confirm Password</label>
+            <div class="controls">
+                <input type="password" name="confirm_password">
+            </div>
+        </div>      
+    </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+                        
+</div>
+            </div>
+        </div>
+                            
+                            
+                             
+                    </div>
+                </div>
+                
+         
+         
+        <!-- /.row -->
+      <br /><br /><br /><br />  <br> <br>
+    <!-- /.container -->
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Kommunity 2018</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+</body>
+
+</html>
