@@ -1,0 +1,12 @@
+C:\Users\Szasz Erika\Desktop\IdentityDemo\bin\Debug\netcoreapp2.0\IdentityDemo.deps.json
+C:\Users\Szasz Erika\Desktop\IdentityDemo\bin\Debug\netcoreapp2.0\IdentityDemo.runtimeconfig.json
+C:\Users\Szasz Erika\Desktop\IdentityDemo\bin\Debug\netcoreapp2.0\IdentityDemo.runtimeconfig.dev.json
+C:\Users\Szasz Erika\Desktop\IdentityDemo\bin\Debug\netcoreapp2.0\IdentityDemo.dll
+C:\Users\Szasz Erika\Desktop\IdentityDemo\bin\Debug\netcoreapp2.0\IdentityDemo.pdb
+C:\Users\Szasz Erika\Desktop\IdentityDemo\obj\Debug\netcoreapp2.0\IdentityDemo.csprojResolveAssemblyReference.cache
+C:\Users\Szasz Erika\Desktop\IdentityDemo\obj\Debug\netcoreapp2.0\IdentityDemo.csproj.CoreCompileInputs.cache
+C:\Users\Szasz Erika\Desktop\IdentityDemo\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\Szasz Erika\Desktop\IdentityDemo\obj\Debug\netcoreapp2.0\IdentityDemo.AssemblyInfoInputs.cache
+C:\Users\Szasz Erika\Desktop\IdentityDemo\obj\Debug\netcoreapp2.0\IdentityDemo.AssemblyInfo.cs
+C:\Users\Szasz Erika\Desktop\IdentityDemo\obj\Debug\netcoreapp2.0\IdentityDemo.dll
+C:\Users\Szasz Erika\Desktop\IdentityDemo\obj\Debug\netcoreapp2.0\IdentityDemo.pdb
