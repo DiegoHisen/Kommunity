@@ -219,6 +219,50 @@ namespace Tier2.Services
 
         }
 
+        public static bool changeRole(User user, string newRole)
+        {
+            // Initialize a new socket connection to communicate with the database server 
+            Connection con = new Connection();
+
+            // Find the user
+
+            User result = findUser(user);
+
+            // Send the service name so the DatabaseServer knows what to expect
+            string commandName = "changeRole";
+            con.sw.WriteLine(commandName);
+            // read confirmation from server
+            con.sr.ReadLine();
+
+            // Change Role
+            result.role = newRole;
+
+            // Convert the object to Json string and send it
+            string json = JsonConvert.SerializeObject(result);
+            con.sw.WriteLine(json);
+            con.sw.Flush();
+
+            try
+            {
+                // Read the responce from database server
+                string fromServer = con.sr.ReadLine();
+                // Convert the responce from Json to User object and return the result
+                User u = JsonConvert.DeserializeObject<User>(fromServer);
+                if (u.role.Equals(newRole))
+                {
+                    return true;
+                }
+                else return false;
+            }
+            catch
+            {
+                return false;
+
+
+            }
+
+        }
+
         public static bool officialPost(OfficialPost post)
         {
 
@@ -243,6 +287,46 @@ namespace Tier2.Services
                 // Convert the responce from Json to OfficialPost
                 OfficialPost p = JsonConvert.DeserializeObject<OfficialPost>(fromServer);
                 if (p.Equals(post))
+                {
+                    return true;
+                }
+                else return false;
+            }
+            catch
+            {
+                return false;
+
+
+            }
+
+
+
+        }
+
+        public static bool approvePetition(Petition petition)
+        {
+
+            // Initialize a new socket connection to communicate with the database server 
+            Connection con = new Connection();
+
+            // Send the service name so the DatabaseServer knows what to expect
+            string commandName = "approvePetition";
+            con.sw.WriteLine(commandName);
+            // read confirmation from server
+            con.sr.ReadLine();
+
+            // Convert the object to Json string and send it
+            string json = JsonConvert.SerializeObject(petition);
+            con.sw.WriteLine(json);
+            con.sw.Flush();
+
+            try
+            {
+                // Read the responce from database server
+                string fromServer = con.sr.ReadLine();
+                // Convert the responce from Json to OfficialPost
+                Petition p = JsonConvert.DeserializeObject<Petition>(fromServer);
+                if (p.Equals(petition))
                 {
                     return true;
                 }
