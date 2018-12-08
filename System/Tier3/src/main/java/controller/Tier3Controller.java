@@ -8,40 +8,30 @@ import model.Citizen;
 import model.City;
 import model.UserDetails;
 
-public class Tier3Controller implements ITier3
-{
-	
-	public Tier3Controller()
-	{
-		
+public class Tier3Controller implements ITier3 {
+
+	public Tier3Controller() {
+
 	}
 
-	
 	@Override
-	public boolean checkId(String cpr) 
-	{
+	public boolean checkId(String cpr) {
 		Session session = databaseFactory.openSession();
 		session.beginTransaction();
-		
+
 		Citizen citizen = session.get(Citizen.class, cpr);
-		
-		if(citizen==null)
-		{
+
+		if (citizen == null) {
 			return false;
-		}
-		else
-		{
+		} else {
 			return true;
 		}
-		
+
 	}
-		
 
 	@Override
-	public UserDetails createAccount(UserDetails user) 
-	{
-		if (this.checkId(user.getCpr())==true)
-		{
+	public UserDetails createAccount(UserDetails user) {
+		if (this.checkId(user.getCpr()) == true) {
 			Session session = systemFactory.openSession();
 			session.beginTransaction();
 			UserDetails databaseUser = user;
@@ -49,36 +39,69 @@ public class Tier3Controller implements ITier3
 			session.getTransaction().commit();
 			session.close();
 			return databaseUser;
-			
-			
+
 		}
-		
-		else
-		{
+
+		else {
 			System.out.println("Id is invalid");
 			return null;
-			
+
 		}
 	}
 
 	@Override
-	public UserDetails checkId_password(UserDetails user) 
-	{
+	public UserDetails checkId_password(UserDetails user) {
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
 		UserDetails databaseUser = session.get(UserDetails.class, user.getCpr());
-		
-		if(databaseUser.getCpr()==user.getCpr() && databaseUser.GetPassword() == user.GetPassword())
-		{
+
+		if (databaseUser.getCpr() == user.getCpr() && databaseUser.GetPassword() == user.GetPassword()) {
 			return databaseUser;
-		}
-		else
-		{
+		} else {
 			System.out.println("Id or password is invalid");
 			return null;
 		}
-		
+
 	}
-	
+
+	@Override
+	public UserDetails changeCity(UserDetails user, String newCity) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		UserDetails databaseUser = session.get(UserDetails.class, user.getCpr());
+		City city = new City(0, null);
+
+		city.setName(newCity);
+		city.setPostNo(databaseUser.getCity().getPostNo());
+
+		databaseUser.setCity(city);
+		return databaseUser;
+
+	}
+
+	public UserDetails changeEmail(UserDetails user, String newEmail) {
+
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		UserDetails databaseUser = session.get(UserDetails.class, user.getCpr());
+
+		databaseUser.SetEmail(newEmail);
+		return databaseUser;
+
+	}
+
+	@Override
+	public UserDetails changePassword(UserDetails user, String oldPass, String newPass) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		UserDetails databaseUser = session.get(UserDetails.class, user.getCpr());
+
+		if (user.GetPassword().equals(oldPass)) {
+			user.SetPassword(newPass);
+			return databaseUser;
+		} else
+			return null;
+
+	}
 
 }
