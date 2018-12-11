@@ -17,7 +17,9 @@ public interface ITier3 {
 	
 	public UserDetails changePassword(UserDetails user,String oldPass,String newPass);
 
-	public static final SessionFactory databaseFactory = new Configuration().configure("hibernate.cfg1.xml")
+	public 
+	
+	public static final SessionFactory databaseFactory1 = new Configuration().configure("hibernate.cfg1.xml")
 			.buildSessionFactory();
 	public static final SessionFactory systemFactory = new Configuration().configure("hibernate.cfg.xml")
 			.buildSessionFactory();

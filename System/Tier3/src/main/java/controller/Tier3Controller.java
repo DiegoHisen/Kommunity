@@ -16,7 +16,7 @@ public class Tier3Controller implements ITier3 {
 
 	@Override
 	public boolean checkId(String cpr) {
-		Session session = databaseFactory.openSession();
+		Session session = databaseFactory1.openSession();
 		session.beginTransaction();
 
 		Citizen citizen = session.get(Citizen.class, cpr);
@@ -102,6 +102,16 @@ public class Tier3Controller implements ITier3 {
 		} else
 			return null;
 
+	}
+
+	@Override
+	public UserDetails changeRole(UserDetails user, String newRole) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		UserDetails databaseUser = session.get(UserDetails.class, user.getCpr());
+
+		databaseUser.SetRole(newRole);
+		return databaseUser;
 	}
 
 }

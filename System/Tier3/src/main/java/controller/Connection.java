@@ -9,6 +9,7 @@ import java.net.Socket;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import model.Petition;
 import model.UserDetails;
 
 public class Connection {
@@ -44,7 +45,13 @@ public class Connection {
 			this.changeEmail();
 			break;
 		case "changePassword":
-			this.changeEmail();
+			this.changePassword();
+			break;
+		case "changeRole":
+			this.changeRole();
+			break;
+		case "approvePetition":
+			this.approvePetition();
 			break;
 		default:
 			System.out.println("Error");
@@ -53,8 +60,6 @@ public class Connection {
 		}
 
 	}
-
-	
 
 	public static String inputConnection() throws IOException {
 
@@ -100,37 +105,94 @@ public class Connection {
 		Gson gson = new Gson();
 
 		String newCity = inputConnection();
-		
-		UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
 
-		UserDetails result = controller.changeCity(response,newCity);
+		try {
+			UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
+			UserDetails result = controller.changeCity(response, newCity);
+			boolean success = true;
+			Connection.OutputConnection(success);
 
-		Connection.OutputConnection(result);
+		} catch (JsonSyntaxException | IOException e) {
+			boolean success = false;
+			Connection.OutputConnection(success);
+		}
+
 	}
-	
+
 	private void changeEmail() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
 
 		String newEmail = inputConnection();
-		
-		UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
 
-		UserDetails result = controller.changeEmail(response,newEmail);
+		try {
+			UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
+			UserDetails result = controller.changeEmail(response, newEmail);
+			boolean success = true;
+			Connection.OutputConnection(success);
 
-		Connection.OutputConnection(result);
+		} catch (JsonSyntaxException | IOException e) {
+			boolean success = false;
+			Connection.OutputConnection(success);
+		}
 	}
-	
-	private void changePassword() throws JsonSyntaxException, IOException {
+
+	private void changePassword() throws IOException {
 		Gson gson = new Gson();
 
 		String oldPass = inputConnection();
 		String newPass = inputConnection();
-		
-		UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
 
-		UserDetails result = controller.changePassword(response,oldPass,newPass);
+		try {
+			UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
+			UserDetails result = controller.changePassword(response, oldPass, newPass);
+			boolean success = true;
+			Connection.OutputConnection(success);
+			
+		} catch (JsonSyntaxException | IOException e) {
+			boolean success = false;
+			Connection.OutputConnection(success);
+		}
 
-		Connection.OutputConnection(result);
 	}
 	
+	private void changeRole() throws JsonSyntaxException, IOException {
+		Gson gson = new Gson();
+
+		String newRole = inputConnection();
+
+		try {
+			UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
+			UserDetails result = controller.changeRole(response, newRole);
+			boolean success = true;
+			Connection.OutputConnection(success);
+
+		} catch (JsonSyntaxException | IOException e) {
+			boolean success = false;
+			Connection.OutputConnection(success);
+		}
+
+	}
+	
+	private void approvePetition() throws JsonSyntaxException, IOException {
+		Gson gson = new Gson();
+
+		 String state = inputConnection();
+         boolean booleanState;
+         
+         if(state.equals("true")) booleanState=true;
+         else booleanState=false;
+         
+		try {
+			Petition response = gson.fromJson(Connection.inputConnection(), Petition.class);
+			Petition result = controller.approvePetition(value);
+			boolean success = true;
+			Connection.OutputConnection(success);
+
+		} catch (JsonSyntaxException | IOException e) {
+			boolean success = false;
+			Connection.OutputConnection(success);
+		}
+
+	}
+
 }
