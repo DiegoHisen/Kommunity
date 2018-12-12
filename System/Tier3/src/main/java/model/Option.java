@@ -10,40 +10,39 @@ public class Option {
 	@Id
 	@Column(name = "Option_Id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int old;
+	private int oid;
 	@OneToOne
-	private int pid;
+	private Petition pid;
+	private Vote opt;
 
-	public int getOld() {
-		return old;
+	public int getOid() {
+		return oid;
 	}
 
-	public void setOld(int old) {
-		this.old = old;
+	public void setOid(int oid) {
+		this.oid = oid;
 	}
 
-	public int getPid() {
+	public Petition getPid() {
 		return pid;
 	}
 
-	public void setPid(int pid) {
+	public void setPid(Petition pid) {
 		this.pid = pid;
 	}
 
-	public String getOpt() {
+	public Vote getOpt() {
 		return opt;
 	}
 
-	public void setOpt(String opt) {
+	public void setOpt(Vote opt) {
 		this.opt = opt;
 	}
 
-	public Option(int old, int pid, String opt) {
+	public Option(int oid, Petition pid, Vote opt) {
 		super();
-		this.old = old;
+		this.oid = oid;
 		this.pid = pid;
 		this.opt = opt;
 	}
-
-	private String opt;
 }
