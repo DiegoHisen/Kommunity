@@ -131,7 +131,6 @@ public class Tier3Controller implements ITier3 {
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
 		Post databasePost = session.get(Post.class,post.getPid());
-		
    //don t know the purpose of this yet
 		return databasePost;
 	}
