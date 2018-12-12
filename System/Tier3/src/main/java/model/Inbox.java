@@ -12,9 +12,9 @@ public class Inbox {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int rid;
 	@OneToOne
-	private String rcpr;
+	private UserDetails rcpr;
 	@OneToOne
-	private int mid;
+	private Message mid;
 
 	public int getRid() {
 		return rid;
