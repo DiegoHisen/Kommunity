@@ -18,7 +18,7 @@ namespace Tier2.Controllers
         }
         
         [HttpPost]
-        public ActionResult<bool> post(aPost post)
+        public ActionResult<bool> post(Post post)
         {
             var result = Service.Post(post);
             if (result == false)
