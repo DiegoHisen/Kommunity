@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 import model.Petition;
+import model.Post;
 import model.UserDetails;
 
 public class Connection {
@@ -52,6 +53,9 @@ public class Connection {
 			break;
 		case "approvePetition":
 			this.approvePetition();
+			break;
+		case "officialPost":
+			this.officialPost();
 			break;
 		default:
 			System.out.println("Error");
@@ -101,7 +105,7 @@ public class Connection {
 		Connection.OutputConnection(result);
 	}
 
-	private void changeCity() throws JsonSyntaxException, IOException {
+	public void changeCity() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
 
 		String newCity = inputConnection();
@@ -119,7 +123,7 @@ public class Connection {
 
 	}
 
-	private void changeEmail() throws JsonSyntaxException, IOException {
+	public void changeEmail() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
 
 		String newEmail = inputConnection();
@@ -136,7 +140,7 @@ public class Connection {
 		}
 	}
 
-	private void changePassword() throws IOException {
+	public void changePassword() throws IOException {
 		Gson gson = new Gson();
 
 		String oldPass = inputConnection();
@@ -155,7 +159,7 @@ public class Connection {
 
 	}
 	
-	private void changeRole() throws JsonSyntaxException, IOException {
+	public void changeRole() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
 
 		String newRole = inputConnection();
@@ -173,18 +177,28 @@ public class Connection {
 
 	}
 	
-	private void approvePetition() throws JsonSyntaxException, IOException {
+	public void approvePetition() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
-
-		 String state = inputConnection();
-         boolean booleanState;
-         
-         if(state.equals("true")) booleanState=true;
-         else booleanState=false;
          
 		try {
 			Petition response = gson.fromJson(Connection.inputConnection(), Petition.class);
-			Petition result = controller.approvePetition(value);
+			Petition result = controller.approvePetition(response);
+			boolean success = true;
+			Connection.OutputConnection(success);
+
+		} catch (JsonSyntaxException | IOException e) {
+			boolean success = false;
+			Connection.OutputConnection(success);
+		}
+
+	}
+	
+	public void officialPost() throws JsonSyntaxException, IOException {
+		Gson gson = new Gson();
+         
+		try {
+			Post response = gson.fromJson(Connection.inputConnection(), Post.class);
+			Post result = controller.officialPost(response);
 			boolean success = true;
 			Connection.OutputConnection(success);
 

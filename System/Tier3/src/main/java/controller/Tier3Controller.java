@@ -6,6 +6,8 @@ import org.hibernate.cfg.Configuration;
 
 import model.Citizen;
 import model.City;
+import model.Petition;
+import model.Post;
 import model.UserDetails;
 
 public class Tier3Controller implements ITier3 {
@@ -113,5 +115,27 @@ public class Tier3Controller implements ITier3 {
 		databaseUser.SetRole(newRole);
 		return databaseUser;
 	}
+
+	@Override
+	public Petition approvePetition(Petition response) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		Petition databasePetition = session.get(Petition.class, response.getPeid());
+
+		databasePetition.setApproved(true);
+		return databasePetition;
+	}
+
+	@Override
+	public Post officialPost(Post post) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		Post databasePost = session.get(Post.class,post.getPid());
+		
+   //don t know the purpose of this yet
+		return databasePost;
+	}
+	
+	
 
 }
