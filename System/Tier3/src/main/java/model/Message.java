@@ -18,6 +18,16 @@ public class Message
 	private int mid;
 	@OneToOne
 	private UserDetails senderid;
+	@OneToOne
+	private UserDetails receiverid;
+	public UserDetails getReceiverid() {
+		return receiverid;
+	}
+
+	public void setReceiverid(UserDetails receiverid) {
+		this.receiverid = receiverid;
+	}
+
 	private Date date;
 	private String text;
 	

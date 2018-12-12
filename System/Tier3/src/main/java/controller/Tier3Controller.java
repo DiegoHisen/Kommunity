@@ -1,11 +1,14 @@
 package controller;
 
+import java.util.ArrayList;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import model.Citizen;
 import model.City;
+import model.Message;
 import model.Petition;
 import model.Post;
 import model.UserDetails;
@@ -164,6 +167,26 @@ public class Tier3Controller implements ITier3 {
 		return databasePost;
 	}
 	
-	
+	@Override
+	public boolean sendMessage(UserDetails sender,UserDetails receiver,Message message) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		message.setSenderid(sender);
+		message.setReceiverid(receiver);
+		session.save(message);
+		return true;
+	}
+
+	@Override
+	public ArrayList<Post> getPosts(String city) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+	/*	SQLQuery sqlQuery = session.createSQLQuery("SELECT * FROM "); */
+        
+		
+		
+		
+	}
+
 
 }

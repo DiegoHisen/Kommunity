@@ -18,7 +18,7 @@ namespace Tier2.Controllers
         }
         
         [HttpPost]
-        public ActionResult<bool> post(Post post)
+        public ActionResult<bool> post(aPost post)
         {
             var result = Service.Post(post);
             if (result == false)
@@ -44,17 +44,6 @@ namespace Tier2.Controllers
         {
             var result = Service.MakePetition(petition);
             if (result == false)
-            {
-                return NotFound();
-            }
-            return result;
-        }
-
-        [HttpGet] // Needs route name to distinguish
-        public ActionResult< List<OfficialPost> > getNews(string city)
-        {
-            var result = Service.getNews(city);
-            if (result == null)
             {
                 return NotFound();
             }

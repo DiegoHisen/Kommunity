@@ -1,9 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import model.City;
+import model.Message;
 import model.Petition;
 import model.Post;
 import model.UserDetails;
@@ -34,6 +37,10 @@ public interface ITier3 {
 	public Post deletePost(Post post);
 	
 	public Petition makePetition(Petition petition);
+	
+	public boolean sendMessage(UserDetails sender,UserDetails receiver,Message message);
+	
+	public ArrayList<Post> getPosts(String city);
 	
 	
 	
