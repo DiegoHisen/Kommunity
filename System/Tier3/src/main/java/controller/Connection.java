@@ -57,6 +57,9 @@ public class Connection {
 		case "officialPost":
 			this.officialPost();
 			break;
+		case "Post":
+			this.Post();
+			break;
 		default:
 			System.out.println("Error");
 			break;
@@ -151,14 +154,14 @@ public class Connection {
 			UserDetails result = controller.changePassword(response, oldPass, newPass);
 			boolean success = true;
 			Connection.OutputConnection(success);
-			
+
 		} catch (JsonSyntaxException | IOException e) {
 			boolean success = false;
 			Connection.OutputConnection(success);
 		}
 
 	}
-	
+
 	public void changeRole() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
 
@@ -176,10 +179,10 @@ public class Connection {
 		}
 
 	}
-	
+
 	public void approvePetition() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
-         
+
 		try {
 			Petition response = gson.fromJson(Connection.inputConnection(), Petition.class);
 			Petition result = controller.approvePetition(response);
@@ -192,13 +195,29 @@ public class Connection {
 		}
 
 	}
-	
+
 	public void officialPost() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
-         
+
 		try {
 			Post response = gson.fromJson(Connection.inputConnection(), Post.class);
 			Post result = controller.officialPost(response);
+			boolean success = true;
+			Connection.OutputConnection(success);
+
+		} catch (JsonSyntaxException | IOException e) {
+			boolean success = false;
+			Connection.OutputConnection(success);
+		}
+
+	}
+
+	public void post() throws JsonSyntaxException, IOException {
+		Gson gson = new Gson();
+
+		try {
+			Post response = gson.fromJson(Connection.inputConnection(), Post.class);
+			Post result = controller.post(response);
 			boolean success = true;
 			Connection.OutputConnection(success);
 

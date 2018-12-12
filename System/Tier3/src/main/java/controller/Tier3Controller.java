@@ -135,6 +135,35 @@ public class Tier3Controller implements ITier3 {
 		return databasePost;
 	}
 	
+	@Override
+	public Post post(Post post) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		Post databasePost = session.get(Post.class,post.getPid());
+		session.save(post);
+   
+		return databasePost;
+	}
+	
+	@Override
+	public Post deletePost(Post post) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		Post databasePost = session.get(Post.class,post.getPid());
+		if(session.contains(post)==true) 
+		session.delete(post);
+		return databasePost;
+	}
+	
+	@Override
+	public Petition makePetition(Petition petition) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		Petition databasePost = session.get(Petition.class,petition.getPeid());
+		session.save(petition);
+		return databasePost;
+	}
+	
 	
 
 }

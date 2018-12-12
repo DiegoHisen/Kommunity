@@ -29,7 +29,13 @@ public interface ITier3 {
 	
 	public Post officialPost(Post post);
 	
-	public 
+	public Post post(Post post);
+	
+	public Post deletePost(Post post);
+	
+	public Petition makePetition(Petition petition);
+	
+	
 	
 	public static final SessionFactory databaseFactory1 = new Configuration().configure("hibernate.cfg1.xml")
 			.buildSessionFactory();
