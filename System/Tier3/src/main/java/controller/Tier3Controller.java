@@ -2,9 +2,11 @@ package controller;
 
 import java.util.ArrayList;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 
 import model.Citizen;
 import model.City;
@@ -133,42 +135,42 @@ public class Tier3Controller implements ITier3 {
 	public Post officialPost(Post post) {
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
-		Post databasePost = session.get(Post.class,post.getPid());
-   //don t know the purpose of this yet
+		Post databasePost = session.get(Post.class, post.getPid());
+		// don t know the purpose of this yet
 		return databasePost;
 	}
-	
+
 	@Override
 	public Post post(Post post) {
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
-		Post databasePost = session.get(Post.class,post.getPid());
+		Post databasePost = session.get(Post.class, post.getPid());
 		session.save(post);
-   
+
 		return databasePost;
 	}
-	
+
 	@Override
 	public Post deletePost(Post post) {
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
-		Post databasePost = session.get(Post.class,post.getPid());
-		if(session.contains(post)==true) 
-		session.delete(post);
+		Post databasePost = session.get(Post.class, post.getPid());
+		if (session.contains(post) == true)
+			session.delete(post);
 		return databasePost;
 	}
-	
+
 	@Override
 	public Petition makePetition(Petition petition) {
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
-		Petition databasePost = session.get(Petition.class,petition.getPeid());
+		Petition databasePost = session.get(Petition.class, petition.getPeid());
 		session.save(petition);
 		return databasePost;
 	}
-	
+
 	@Override
-	public boolean sendMessage(UserDetails sender,UserDetails receiver,Message message) {
+	public boolean sendMessage(UserDetails sender, UserDetails receiver, Message message) {
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
 		message.setSenderid(sender);
@@ -181,9 +183,22 @@ public class Tier3Controller implements ITier3 {
 	public ArrayList<Post> getPosts(String city) {
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
-	/*	SQLQuery sqlQuery = session.createSQLQuery("SELECT * FROM "); */
-        	
-	}
+		Criteria criteria = session.createCriteria(Post.class).add(Restrictions.eq("city", city));
+		ArrayList<Post> list = (ArrayList<Post>) criteria.list();
+		return list;
 
+	}
+	
+	@Override
+	public ArrayList<Petition> getApprovedPetitions(boolean value,String city) {
+		Session session = systemFactory.openSession();
+		session.beginTransaction();
+		Criteria criteria = session.createCriteria(Petition.class)
+				.add(Restrictions.eq("approved",value))
+				.add(Restrictions.eq("city",city));
+		ArrayList<Petition> list = (ArrayList<Petition>) criteria.list();
+		return list;
+
+	}
 
 }

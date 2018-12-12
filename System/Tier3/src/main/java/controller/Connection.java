@@ -74,10 +74,16 @@ public class Connection {
 		case "getNews":
 			this.getPosts();
 			break;
+		case "getApprovedPetitions":
+			this.getApprovedPetitions();
+			break;
+		case "getUnapprovedPetitions":
+			this.getUnapprovedPetitions();
+			break;
+			
 		default:
 			System.out.println("Error");
 			break;
-			
 
 		}
 
@@ -242,7 +248,7 @@ public class Connection {
 		}
 
 	}
-	
+
 	public void deletePost() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
 
@@ -258,7 +264,7 @@ public class Connection {
 		}
 
 	}
-	
+
 	public void makePetition() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
 
@@ -279,10 +285,10 @@ public class Connection {
 		Gson gson = new Gson();
 
 		try {
-			UserDetails sender = gson.fromJson(Connection.inputConnection(),UserDetails.class);
-			UserDetails receiver = gson.fromJson(Connection.inputConnection(),UserDetails.class);
-			Message message = gson.fromJson(Connection.inputConnection(),Message.class);
-			boolean success= controller.sendMessage(sender,receiver,message);
+			UserDetails sender = gson.fromJson(Connection.inputConnection(), UserDetails.class);
+			UserDetails receiver = gson.fromJson(Connection.inputConnection(), UserDetails.class);
+			Message message = gson.fromJson(Connection.inputConnection(), Message.class);
+			boolean success = controller.sendMessage(sender, receiver, message);
 			success = true;
 			Connection.OutputConnection(success);
 
@@ -292,18 +298,48 @@ public class Connection {
 		}
 
 	}
-	
-	public ArrayList<Post> getPosts() throws JsonSyntaxException, IOException {
+
+	public void getPosts() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();
-        String city = inputConnection();
+		String city = inputConnection();
 		try {
-			ArrayList<Post> result = controller.getPosts(String city);
-			boolean success = true;
-			Connection.OutputConnection(success);
+			ArrayList<Post> result = controller.getPosts(city);
+			System.out.println("Success");
+			Connection.OutputConnection(result);
 
 		} catch (JsonSyntaxException | IOException e) {
-			boolean success = false;
-			Connection.OutputConnection(success);
+			Connection.OutputConnection(null);
+
+		}
+
+	}
+
+	public void getApprovedPetitions() throws JsonSyntaxException, IOException {
+		Gson gson = new Gson();
+		String city = inputConnection();
+		try {
+			ArrayList<Petition> result = controller.getApprovedPetitions(true,city);
+			System.out.println("Success");
+			Connection.OutputConnection(result);
+
+		} catch (JsonSyntaxException | IOException e) {
+			Connection.OutputConnection(null);
+
+		}
+
+	}
+
+	public void getUnapprovedPetitions() throws JsonSyntaxException, IOException {
+		Gson gson = new Gson();
+		String city = inputConnection();
+		try {
+			ArrayList<Petition> result = controller.getApprovedPetitions(false,city);
+			System.out.println("Success");
+			Connection.OutputConnection(result);
+
+		} catch (JsonSyntaxException | IOException e) {
+			Connection.OutputConnection(null);
+
 		}
 
 	}
