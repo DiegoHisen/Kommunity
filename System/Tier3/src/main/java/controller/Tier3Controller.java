@@ -182,10 +182,7 @@ public class Tier3Controller implements ITier3 {
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
 	/*	SQLQuery sqlQuery = session.createSQLQuery("SELECT * FROM "); */
-        
-		
-		
-		
+        	
 	}
 
 

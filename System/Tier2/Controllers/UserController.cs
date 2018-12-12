@@ -50,6 +50,17 @@ namespace Tier2.Controllers
             return result;
         }
 
+        [HttpGet] // Needs route name to distinguish
+        public ActionResult< List<OfficialPost> > getNews(string city)
+        {
+            var result = Service.getNews(city);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return result;
+        }
+
          [HttpGet] // Needs route name to distinguish
         public ActionResult< List<Post> > getPosts(string city)
         {
