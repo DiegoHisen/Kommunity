@@ -1,14 +1,6 @@
 {
-  "ProjectFilePath": "c:\\Users\\Diego H\\Desktop\\Kommunity\\System\\Tier2\\Tier2.csproj",
+  "ProjectFilePath": "e:\\Kommunity_System\\System\\Tier2\\Tier2.csproj",
   "TargetFramework": "netcoreapp2.1",
   "TagHelpers": [],
-  "Configuration": {
-    "ConfigurationName": "MVC-2.1",
-    "LanguageVersion": "2.1",
-    "Extensions": [
-      {
-        "ExtensionName": "MVC-2.1"
-      }
-    ]
-  }
+  "Configuration": null
 }

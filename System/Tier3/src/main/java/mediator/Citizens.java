@@ -1,4 +1,4 @@
-package controller;
+package mediator;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,11 +6,11 @@ import org.hibernate.cfg.Configuration;
 
 import model.Citizen;
 
-public class CitizenDatabase 
+public class Citizens 
 {
 	public static final SessionFactory databaseFactory = new Configuration().configure("hibernate.cfg1.xml").buildSessionFactory();
 	
-	public CitizenDatabase()
+	public Citizens()
 	{
 		Citizen citizen = new Citizen("1207883009");
 		Citizen citizen1 = new Citizen("1105823019");

@@ -1,4 +1,4 @@
-package controller;
+package mediator;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ public class Server
 {
 	public static void main(String[] args) throws IOException
 	{
-		CitizenDatabase database = new CitizenDatabase();
+		Citizens database = new Citizens();
 		
 		Connection con = new Connection();
 

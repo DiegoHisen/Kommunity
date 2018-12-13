@@ -24,23 +24,25 @@ public class Inbox {
 		this.rid = rid;
 	}
 
-	public String getRcpr() {
+	
+
+	public UserDetails getRcpr() {
 		return rcpr;
 	}
 
-	public void setRcpr(String rcpr) {
+	public void setRcpr(UserDetails rcpr) {
 		this.rcpr = rcpr;
 	}
 
-	public int getMid() {
+	public Message getMid() {
 		return mid;
 	}
 
-	public void setMid(int mid) {
+	public void setMid(Message mid) {
 		this.mid = mid;
 	}
 
-	public Inbox(int rid, String rcpr, int mid) {
+	public Inbox(int rid, UserDetails rcpr, Message mid) {
 		super();
 		this.rid = rid;
 		this.rcpr = rcpr;

@@ -1,4 +1,4 @@
-package controller;
+package mediator;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import controller.Tier3Controller;
 import model.Message;
 import model.Petition;
 import model.Post;
@@ -25,6 +26,7 @@ public class Connection {
 		ServerSocket ss = new ServerSocket(8888);
 		System.out.println("Waiting for client request...");
 		Connection.s = ss.accept();
+		System.out.println("Client connect");
 		Connection.is = new DataInputStream(s.getInputStream());
 		Connection.os = new DataOutputStream(s.getOutputStream());
 
