@@ -25,25 +25,25 @@ public class Post
 	private String type;
 	@Temporal(TemporalType.DATE)
 	private Date date;
-	private City city;
+	//private City city;
 	
-	public Post(int pid, UserDetails creator, String content, String type, Date date,City city) 
+	public Post(int pid, UserDetails creator, String content, String type, Date date) 
 	{
 		this.pid = pid;
 		this.creator = creator;
 		this.content = content;
 		this.type = type;
 		this.date = date;
-		this.city=city;
+		//this.city=city;
 	}
 
-	public City getCity() {
-		return city;
-	}
+	//public City getCity() {
+		//return city;
+	//}
 
-	public void setCity(City city) {
-		this.city = city;
-	}
+	//public void setCity(City city) {
+		//this.city = city;
+	//}
 
 	public int getPid() {
 		return pid;

@@ -29,6 +29,7 @@ public class Connection {
 		System.out.println("Client connect");
 		Connection.is = new DataInputStream(s.getInputStream());
 		Connection.os = new DataOutputStream(s.getOutputStream());
+		controller.citizenDatabase();
 
 	}
 
@@ -43,9 +44,9 @@ public class Connection {
 		case "signup":
 			this.registerConnection();
 			break;
-		case "changeCity":
+		/*case "changeCity":
 			this.changeCity();
-			break;
+			break;*/
 		case "changeEmail":
 			this.changeEmail();
 			break;
@@ -131,23 +132,23 @@ public class Connection {
 		Connection.OutputConnection(result);
 	}
 
-	public void changeCity() throws JsonSyntaxException, IOException {
-		Gson gson = new Gson();
-
-		String newCity = inputConnection();
-
-		try {
-			UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
-			UserDetails result = controller.changeCity(response, newCity);
-			boolean success = true;
-			Connection.OutputConnection(success);
-
-		} catch (JsonSyntaxException | IOException e) {
-			boolean success = false;
-			Connection.OutputConnection(success);
-		}
-
-	}
+//	public void changeCity() throws JsonSyntaxException, IOException {
+//		Gson gson = new Gson();
+//
+//		String newCity = inputConnection();
+//
+//		try {
+//			UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
+//			UserDetails result = controller.changeCity(response, newCity);
+//			boolean success = true;
+//			Connection.OutputConnection(success);
+//
+//		} catch (JsonSyntaxException | IOException e) {
+//			boolean success = false;
+//			Connection.OutputConnection(success);
+//		}
+//
+//	}
 
 	public void changeEmail() throws JsonSyntaxException, IOException {
 		Gson gson = new Gson();

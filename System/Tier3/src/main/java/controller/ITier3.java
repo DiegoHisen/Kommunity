@@ -12,6 +12,8 @@ import model.Post;
 import model.UserDetails;
 
 public interface ITier3 {
+	
+	public  void citizenDatabase();
 
 	public boolean checkId(String cpr);
 
@@ -19,7 +21,7 @@ public interface ITier3 {
 
 	public UserDetails checkId_password(UserDetails user);
 
-	public UserDetails changeCity(UserDetails user, String newCity);
+	//public UserDetails changeCity(UserDetails user, String newCity);
 
 	public UserDetails changePassword(UserDetails user, String oldPass, String newPass);
 

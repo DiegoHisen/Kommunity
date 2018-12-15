@@ -14,13 +14,12 @@ public class UserDetails
 	private String name;
 	private String email;
 	private String role;
-	@OneToOne
-	private City city;
+	private String city;
 	
-	public UserDetails(String cpr, String password,String name, String email,String role,City city)
+	public UserDetails(String cpr, String password,String name, String email,String role,String city)
 	{
 		this.cpr = cpr;
-		this.password = Security.HashFunction(password);
+		this.password = //Security.HashFunction(password);
 		this.name = name;
 		this.email = email;
 		this.role = role;
@@ -48,7 +47,7 @@ public class UserDetails
 	
 	public void SetPassword(String password)
 	{
-		this.password = Security.HashFunction(password);
+		this.password = password;
 	}
 	
 	public String GetName()
@@ -81,14 +80,16 @@ public class UserDetails
 		this.role = role;
 	}
 
-	public City getCity() {
+
+	public String getCity()
+	{
 		return city;
 	}
-
-	public void setCity(City city) {
+	
+	public void SetCity(String city)
+	{
 		this.city = city;
 	}
-	
 	
 	
 	
