@@ -62,8 +62,11 @@ public class Tier3Controller implements ITier3 {
 			session.save(user);
 			session.getTransaction().commit();
 			session.close();
+			System.out.println(databaseUser);
 			return databaseUser;
+			
 
+			
 		}
 
 		else {
@@ -77,10 +80,16 @@ public class Tier3Controller implements ITier3 {
 	public UserDetails checkId_password(UserDetails user) {
 		Session session = systemFactory.openSession();
 		session.beginTransaction();
-		UserDetails databaseUser = session.get(UserDetails.class, user.getCpr());
+		UserDetails loginuser = user;
+		System.out.println("This is user " +loginuser.getCpr());
+		UserDetails databaseUser = (UserDetails) session.get(UserDetails.class, user.getCpr());
+		System.out.println("This is databaseuser " + databaseUser.getCpr());
 
-		if (databaseUser.getCpr() == user.getCpr() && databaseUser.GetPassword() == user.GetPassword()) {
+		if (databaseUser.getCpr().equals(loginuser.getCpr()) && databaseUser.GetPassword().equals(loginuser.GetPassword())) 
+		{
+			System.out.println("Succes");
 			return databaseUser;
+			
 		} else {
 			System.out.println("Id or password is invalid");
 			return null;

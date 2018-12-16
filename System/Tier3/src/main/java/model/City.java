@@ -16,6 +16,11 @@ public class City
 		this.postNo = postNo;
 		this.name = name;
 	}
+	
+	public City()
+	{
+		
+	}
 
 	public int getPostNo() {
 		return postNo;

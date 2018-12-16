@@ -15,6 +15,11 @@ public class Citizen
 		this.cpr = cpr;
 	}
 	
+	public Citizen()
+	{
+		
+	}
+	
 	public String getCpr()
 	{
 		return cpr;

@@ -36,6 +36,11 @@ public class Post
 		this.date = date;
 		//this.city=city;
 	}
+	
+	public Post()
+	{
+		
+	}
 
 	//public City getCity() {
 		//return city;

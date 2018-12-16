@@ -12,13 +12,21 @@ public class Server
 	{
 		
 		
-		Connection con = new Connection();
+	    Connection con = new Connection();
 
-		//Tier3Controller controller = new Tier3Controller();
-		//UserDetails user = new UserDetails("1207883009","da","aa","da","r","ad");
-		//controller.createAccount(user);
+	
+		Tier3Controller controller = new Tier3Controller();
+		UserDetails user = new UserDetails("1207883009","da","aa","da","NU","ad");
+		UserDetails databaseuser = controller.createAccount(user);
+//		System.out.println(databaseuser.getCpr());
+//		UserDetails loginuser =  controller.checkId_password(databaseuser);
+//		System.out.println(loginuser.getCpr());
+//		
+		
 				
-		con.Command();
+					con.Command();
+			
+		
 		
 	}
 

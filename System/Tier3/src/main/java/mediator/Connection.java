@@ -17,23 +17,28 @@ import model.Post;
 import model.UserDetails;
 
 public class Connection {
-	private static Tier3Controller controller;
+	private static Tier3Controller controller = new Tier3Controller();
 	private static Socket s;
 	private static DataInputStream is;
 	private static DataOutputStream os;
 
 	public Connection() throws IOException {
+	
 		ServerSocket ss = new ServerSocket(8888);
-		System.out.println("Waiting for client request...");
-		Connection.s = ss.accept();
-		System.out.println("Client connect");
-		Connection.is = new DataInputStream(s.getInputStream());
-		Connection.os = new DataOutputStream(s.getOutputStream());
-		controller.citizenDatabase();
+
+			System.out.println("Waiting for client request...");
+			Connection.s = ss.accept();
+			System.out.println("Client connect");
+			Connection.is = new DataInputStream(s.getInputStream());
+			Connection.os = new DataOutputStream(s.getOutputStream());
+		
+		
+		//controller.citizenDatabase();
 
 	}
 
 	public void Command() throws IOException {
+		
 		String input = Connection.inputConnection();
 
 		switch (input) {
@@ -114,6 +119,8 @@ public class Connection {
 		Gson gson = new Gson();
 
 		UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
+		
+///		System.out.println(Connection.inputConnection());
 
 		UserDetails result = controller.createAccount(response);
 
@@ -126,8 +133,15 @@ public class Connection {
 		Gson gson = new Gson();
 
 		UserDetails response = gson.fromJson(Connection.inputConnection(), UserDetails.class);
+		System.out.println("name "+ response.GetName());
+		System.out.println( "cpr "+response.getCpr());
+		System.out.println("password "+ response.GetPassword());
+		System.out.println("email "+ response.GetEmail());
+		System.out.println("city "+ response.getCity());
+		System.out.println( "role "+response.GetRole());
 
-		UserDetails result = controller.checkId_password(response);
+
+		UserDetails result = (UserDetails)controller.checkId_password(response);
 
 		Connection.OutputConnection(result);
 	}

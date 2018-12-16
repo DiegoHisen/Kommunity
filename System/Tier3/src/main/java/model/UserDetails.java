@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+
 import security.Security;
 @Entity
 public class UserDetails 
@@ -19,11 +20,16 @@ public class UserDetails
 	public UserDetails(String cpr, String password,String name, String email,String role,String city)
 	{
 		this.cpr = cpr;
-		this.password = //Security.HashFunction(password);
+		this.password = password;//Security.HashFunction(password);
 		this.name = name;
 		this.email = email;
 		this.role = role;
 		this.city = city;
+	}
+	
+	public UserDetails()
+	{
+		
 	}
 	
 	

@@ -48,5 +48,10 @@ public class Inbox {
 		this.rcpr = rcpr;
 		this.mid = mid;
 	}
+	
+	public Inbox()
+	{
+		
+	}
 
 }

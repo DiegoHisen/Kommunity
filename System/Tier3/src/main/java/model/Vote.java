@@ -25,6 +25,11 @@ public class Vote
 		this.voter = voter;
 		this.peid = peid;
 	}
+	
+	public Vote()
+	{
+		
+	}
 	public int getVid() {
 		return vid;
 	}

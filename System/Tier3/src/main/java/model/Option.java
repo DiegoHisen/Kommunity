@@ -15,6 +15,11 @@ public class Option {
 	private Petition pid;
 	private Vote opt;
 
+	public Option()
+	{
+		
+	}
+	
 	public int getOid() {
 		return oid;
 	}

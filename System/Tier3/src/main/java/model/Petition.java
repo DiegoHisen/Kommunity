@@ -34,6 +34,11 @@ public class Petition
 		this.content = content;
 		this.approved = approved;
 	}
+	
+	public Petition()
+	{
+		
+	}
 
 	public int getPeid() {
 		return peid;

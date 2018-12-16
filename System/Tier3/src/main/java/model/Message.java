@@ -38,6 +38,11 @@ public class Message
 		this.date = date;
 		this.text = text;
 	}
+	
+	public Message()
+	{
+		
+	}
 
 	public int getMid() {
 		return mid;
