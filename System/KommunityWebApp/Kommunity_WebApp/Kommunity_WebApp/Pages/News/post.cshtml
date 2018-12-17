@@ -1,0 +1,66 @@
+﻿@page
+@model Kommunity_WebApp.Pages.News.postModel
+@{
+    ViewData["Title"] = "post";
+}
+
+    <script  type="text/javascript">
+        $(document).ready(function () {
+            var settings = {
+                'bold': false,
+                'italics': false,
+                'underline': false,
+                'insert_img': false,
+                'print': false
+            }        
+
+            $("#txtEditor").Editor(settings);
+        });
+    </script>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-12">
+                <br />
+                <br />
+                <!-- Blog Post -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">Post news</h2>
+                        <form>
+                            <div class="form-group">
+                                <label>Post title</label>
+                                <input type="textarea" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Select category</label>
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                    <option>Events</option>
+                                    <option>Jobs</option>
+                                    <option>Traffic</option>
+                                    <option>Infrastructure</option>
+                                    <option>Food</option>
+                                </select>
+                            </div>
+                            <textarea id="txtEditor"></textarea>
+
+                            <br>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <!-- /.row -->
+    <!-- /.container -->
+
