@@ -11,12 +11,11 @@ public class Petition
 	private int peid;
 	private String title;
 	private User creator;
-	private Date date;
+	private String date;
 	private String content;
 	private boolean approved;
-	private User approvedBy;
 	
-	public Petition(int peid,String title, User creator, Date date, String content, boolean approved,User approvedBy) 
+	public Petition(int peid,String title, User creator, String date, String content, boolean approved) 
 	{
 		this.peid = peid;
 		this.creator = creator;
@@ -24,22 +23,8 @@ public class Petition
 		this.content = content;
 		this.approved = approved;
 		this.title = title;
-		this.approvedBy = approvedBy;
 	}
 	
-	
-
-	public User getApprovedBy() {
-		return approvedBy;
-	}
-
-
-
-	public void setApprovedBy(User approvedBy) {
-		this.approvedBy = approvedBy;
-	}
-
-
 
 	public String getTitle() {
 		return title;
@@ -62,11 +47,12 @@ public class Petition
 		this.peid = peid;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-
-	public void setDate(Date date) {
+	
+	
+	public void setDate(String date) {
 		this.date = date;
 	}
 

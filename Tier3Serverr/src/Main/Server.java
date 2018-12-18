@@ -27,7 +27,7 @@ public class Server
 	private static final String urlCitizen = "jdbc:postgresql://localhost:5432/New_Citizen_Database(SEP3)";
 	private static final String urlSystem = "jdbc:postgresql://localhost:5432/New_System_Database(SEP3)";
 	private static final String username = "postgres";
-	private static final String password = "865feeBA";
+	private static final String password = "865feBA";
 	
 	private static final SystemPersistence systemDbs = new SystemDbs(urlSystem,username,password);
 	
@@ -51,21 +51,21 @@ public static void Command(String input) throws IOException {
 	case "signup":
 		register();
 		break;
-//	/*case "changeCity":
-//		this.changeCity();
-//		break;*/
-//	case "changeEmail":
-//		this.changeEmail();
-//		break;
-//	case "changePassword":
-//		this.changePassword();
-//		break;
-//	case "changeRole":
-//		this.changeRole();
-//		break;
-//	case "approvePetition":
-//		this.approvePetition();
-//		break;
+	case "changeCity":
+		Server.changeCity();
+		break;
+	case "changeEmail":
+	Server.changeEmail();
+		break;
+	case "changePassword":
+	Server.changePassword();
+		break;
+	case "changeRole":
+	Server.changeRole();
+	break;
+		case "approvePetition":
+		Server.approvePetition();
+		break;
 //	case "officialPost":
 //		this.officialPost();
 //		break;
@@ -75,7 +75,7 @@ public static void Command(String input) throws IOException {
 //	case "deletePost":
 //		this.deletePost();
 //		break;
-	case "makePetition":
+	case "MakePetition":
 		Server.makePetition();
 		break;
 //	case "sendMessage":
@@ -84,12 +84,12 @@ public static void Command(String input) throws IOException {
 	case "getPosts":
 		getPosts();
 		break;
-//	case "getApprovedPetitions":
-//		this.getApprovedPetitions();
-//		break;
-//	case "getUnapprovedPetitions":
-//		this.getUnapprovedPetitions();
-//		break;
+	case "getApprovedPetitions":
+		Server.getApprovedPetitions();
+		break;
+	case "getUnapprovedPetitions":
+		Server.getUnapprovedPetitions();
+		break;
 		
 	default:
 		System.out.println("Unrecognized command received!");
@@ -99,6 +99,10 @@ public static void Command(String input) throws IOException {
 
 }
 	
+
+
+
+
 	public static void socketConnection() throws IOException {
 
 		while( true) {
@@ -233,5 +237,149 @@ public static void Command(String input) throws IOException {
 		System.out.println("Response sent to client!");
 
 	}
+	
+	
+	public static void approvePetition() throws IOException
+	{
+		String fromClient = is.readLine();
+		System.out.println("This petition is from client: "+fromClient);
+		Gson gson = new Gson();
+		Petition petitionFromClient = gson.fromJson(fromClient, Petition.class);
+		System.out.println("Converted from json: "+petitionFromClient);
+		
+		System.out.println(petitionFromClient.getPeid());
+		
+		Petition databasepetition = systemDbs.approvePetition(petitionFromClient);		
+		String json = gson.toJson(databasepetition);
+		System.out.println("Found in database: "+databasepetition.getPeid() + " ...with title: "+ databasepetition.getTitle());
+		System.out.println("Sending to client: "+json);
+		// Send user object in json format
+		os.writeUTF(json);
+		s.close();
+		System.out.println("Response sent to client!");
+	}
+	
+	public static void getApprovedPetitions() throws IOException
+	{
+		Gson gson = new Gson();
+	
+		ArrayList<Petition> databasepetition = systemDbs.getApprovedPetition();		
+		String json = gson.toJson(databasepetition);
+		System.out.println("Sending to client: "+json);
+		// Send user object in json format
+		os.writeUTF(json);
+		s.close();
+		System.out.println("Response sent to client!");
+	}
+	
+
+	private static void getUnapprovedPetitions() throws IOException 
+	{
+		Gson gson = new Gson();
+		
+		ArrayList<Petition> databasepetition = systemDbs.getUnApprovedPetition();		
+		String json = gson.toJson(databasepetition);
+		System.out.println("Sending to client: "+json);
+		// Send user object in json format
+		os.writeUTF(json);
+		s.close();
+		System.out.println("Response sent to client!");
+
+	}
+	
+	private static void changeCity() throws IOException 
+	{
+		String fromClient = is.readLine();
+		System.out.println("This user is from client: "+fromClient);
+		Gson gson = new Gson();
+		User userFromClient = gson.fromJson(fromClient, User.class);
+		System.out.println("Converted from json: "+userFromClient);
+		
+		fromClient = is.readLine();
+		
+		
+		User databaseuser = systemDbs.changeCity(userFromClient, fromClient);
+			
+			
+		String json = gson.toJson(databaseuser);
+		System.out.println("Found in database: "+databaseuser.getCpr() + " ...with pwd: "+ databaseuser.GetPassword());
+		System.out.println("Sending to client: "+json);
+		os.writeUTF(json);
+		s.close();
+		System.out.println("Response sent to client!");
+	}
+	
+	
+
+	private static void changeRole() throws IOException
+	{
+		String fromClient = is.readLine();
+		System.out.println("This user is from client: "+fromClient);
+		Gson gson = new Gson();
+		User userFromClient = gson.fromJson(fromClient, User.class);
+		System.out.println("Converted from json: "+userFromClient);
+		
+		fromClient = is.readLine();
+		
+		
+		User databaseuser = systemDbs.changeRole(userFromClient, fromClient);
+			
+			
+		String json = gson.toJson(databaseuser);
+		System.out.println("Found in database: "+databaseuser.getCpr() + " ...with pwd: "+ databaseuser.GetPassword());
+		System.out.println("Sending to client: "+json);
+		os.writeUTF(json);
+		s.close();
+		System.out.println("Response sent to client!");
+	
+}
+
+	private static void changePassword() throws IOException 
+	{
+		String fromClient = is.readLine();
+		System.out.println("This user is from client: "+fromClient);
+		Gson gson = new Gson();
+		User userFromClient = gson.fromJson(fromClient, User.class);
+		System.out.println("Converted from json: "+userFromClient);
+		
+		fromClient = is.readLine();
+		
+		
+		User databaseuser = systemDbs.changePassword(userFromClient, fromClient);
+			
+			
+		String json = gson.toJson(databaseuser);
+		System.out.println("Found in database: "+databaseuser.getCpr() + " ...with pwd: "+ databaseuser.GetPassword());
+		System.out.println("Sending to client: "+json);
+		os.writeUTF(json);
+		s.close();
+		System.out.println("Response sent to client!");
+
+
+	}
+
+	private static void changeEmail() throws IOException
+	{
+		String fromClient = is.readLine();
+		System.out.println("This user is from client: "+fromClient);
+		Gson gson = new Gson();
+		User userFromClient = gson.fromJson(fromClient, User.class);
+		System.out.println("Converted from json: "+userFromClient);
+		
+		fromClient = is.readLine();
+		
+		
+		User databaseuser = systemDbs.changeEmail(userFromClient, fromClient);
+			
+			
+		String json = gson.toJson(databaseuser);
+		System.out.println("Found in database: "+databaseuser.getCpr() + " ...with pwd: "+ databaseuser.GetPassword());
+		System.out.println("Sending to client: "+json);
+		os.writeUTF(json);
+		s.close();
+		System.out.println("Response sent to client!");
+
+	
+}
 	
 }

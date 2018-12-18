@@ -14,10 +14,10 @@ public class Post
 	private User creator;
 	private String content;
 	private String type;
-	private Date date;
+	private String date;
 	private String city;
 	
-	public Post(int pid,String title, User creator, String content, String type,Date date, String city) 
+	public Post(int pid,String title, User creator, String content, String type,String date, String city) 
 	{
 		this.pid = pid;
 		this.creator = creator;
@@ -74,11 +74,11 @@ public class Post
 		this.type = type;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

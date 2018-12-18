@@ -1,10 +1,11 @@
+package test;
 
-
-package Main;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-//import java.sql.Date;
+import org.junit.Before;
+import org.junit.Test;
 
 import Common.Petition;
 import Common.Post;
@@ -13,17 +14,34 @@ import mediator.CitizenDbs;
 import mediator.CitizenPersistence;
 import mediator.SystemDbs;
 import mediator.SystemPersistence;
+import smartdocServer.domain.mediator.DBS;
+import utility.persistence.MyDatabase;
 
-public class Test 
+public class Testing
 {
- public static void main(String [] args)
- {
-	 CitizenPersistence test = new CitizenDbs("jdbc:postgresql://localhost:5432/New_Citizen_Database(SEP3)","postgres","865feeBA");
+	
+	private static CitizenPersistence testCitizen;
+	
+
+	@Before
+	public static void beforeOpenDatabase() throws ClassNotFoundException
+	{
+		 testCitizen = new CitizenDbs("jdbc:postgresql://localhost:5432/New_Citizen_Database(SEP3)","postgres","865feeBA");
+		SystemPersistence testSystem = new SystemDbs("jdbc:postgresql://localhost:5432/New_System_Database(SEP3)","postgres","865feeBA");
+		testSystem.initializeCitizenDbs("jdbc:postgresql://localhost:5432/New_Citizen_Database(SEP3)");
+	}
+	
+	
+	@Test
+	public void checkFakeId()
+	{
+		User user = new User();
+		 user.setCpr("1207883009");
+		 assertEquals(testCitizen.CheckId(user),false); 
+	}
+	
+	@Test
 //	 
-	 User user = new User();
-	 user.setCpr("1207883009");
-	 user.SetPassword("da");
-	 user.SetCity("d");
 //	// System.out.println(test.CheckId(user));
 //	 
 	 SystemPersistence testSystem = new SystemDbs("jdbc:postgresql://localhost:5432/New_System_Database(SEP3)","postgres","865feeBA");
@@ -73,4 +91,5 @@ public class Test
 	 //System.out.println(newUser.GetPassword());
 //	 
  }
+
 }

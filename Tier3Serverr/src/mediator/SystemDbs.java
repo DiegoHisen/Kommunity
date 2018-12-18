@@ -85,7 +85,7 @@ public class SystemDbs implements SystemPersistence
 			}
 			
 			}
-			
+			System.out.println("Id is invalid");
 		return null;
 			
 	}
@@ -128,18 +128,17 @@ public class SystemDbs implements SystemPersistence
 @Override
 	public Post createPost(Post post)
 	{
-	String sql = "insert into Post(pid,title,creator,content,type,pdate,city) values(?,?,?,?,?,?,?)";
-	String sql1 = "select * from Post where pid=?";
+	String sql = "insert into Post(title,creator,content,type,pdate,city) values(?,?,?,?,?,?)";
+	String sql1 = "select * from Post where creator=?";
 
     try (Connection conn = DriverManager.getConnection(url,username,password);
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    	pstmt.setInt(1,post.getPid());
-    	pstmt.setString(2, post.getTitle());
-    	pstmt.setString(3,post.getCreator().getCpr());
-    	pstmt.setString(4, post.getContent());
-    	pstmt.setString(5, post.getType());
-    	pstmt.setDate(6, post.getDate());
-    	pstmt.setString(7,post.getCity());
+    	pstmt.setString(1, post.getTitle());
+    	pstmt.setString(2,post.getCreator().getCpr());
+    	pstmt.setString(3, post.getContent());
+    	pstmt.setString(4, post.getType());
+    	pstmt.setString(5, post.getDate());
+    	pstmt.setString(6,post.getCity());
     	
     	pstmt.executeUpdate();
         System.out.println("Post added into database");
@@ -152,13 +151,13 @@ public class SystemDbs implements SystemPersistence
 	try (Connection con = DriverManager.getConnection(url, username, password);
              PreparedStatement pst = con.prepareStatement(sql1))
 	{
-		pst.setInt(1, post.getPid());
+		pst.setString(1, post.getCreator().getCpr());
 		ResultSet rs = pst.executeQuery();
 		 if (rs.next()) {
                 
 			 User user = new User();
 			 user.setCpr(rs.getString(3));
-			    Post databasepost = new Post(rs.getInt(1),rs.getString(2),user,rs.getString(4),rs.getString(5),rs.getDate(6),rs.getString(7));
+			    Post databasepost = new Post(rs.getInt(1),rs.getString(2),user,rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
 				System.out.println("Post is in database");
 				return databasepost;
 				
@@ -198,7 +197,7 @@ public  ArrayList<Post> getPostByCity(String city)
                
                   User user = new User();
  				 user.setCpr(rs.getString(3));
-                  Post databasepost = new Post(rs.getInt(1),rs.getString(2),user,rs.getString(4),rs.getString(5),rs.getDate(6),rs.getString(7));
+                  Post databasepost = new Post(rs.getInt(1),rs.getString(2),user,rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
                   list.add(databasepost);
                   System.out.println("Post added to list");
                 }
@@ -223,18 +222,16 @@ public  ArrayList<Post> getPostByCity(String city)
 @Override
 public  Petition createPetition(Petition petition)
 {
-	String sql = "insert into Petition(peid,title,creator,pedate,content,approved,approvedby) values(?,?,?,?,?,?,?)";
-	String sql1 = "select * from Petition where peid=?";
+	String sql = "insert into Petition(title,creator,pedate,content,approved) values(?,?,?,?,?)";
+	String sql1 = "select * from Petition where petition.peid = ?";
 
     try (Connection conn = DriverManager.getConnection(url,username,password);
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    	pstmt.setInt(1,petition.getPeid());
-    	pstmt.setString(2, petition.getTitle());
-    	pstmt.setString(3,petition.getCreator().getCpr());
-    	pstmt.setDate(4, petition.getDate());
-    	pstmt.setString(5, petition.getContent());
-    	pstmt.setBoolean(6,  petition.isApproved());
-    	pstmt.setString(7, petition.getApprovedBy().getCpr());
+    	pstmt.setString(1, petition.getTitle());
+    	pstmt.setString(2,petition.getCreator().getCpr());
+    	pstmt.setString(3, petition.getDate());
+    	pstmt.setString(4, petition.getContent());
+    	pstmt.setBoolean(5,  petition.isApproved());
 
     	
     	pstmt.executeUpdate();
@@ -254,9 +251,7 @@ public  Petition createPetition(Petition petition)
                 
 			 User user = new User();
 			 user.setCpr(rs.getString(3));
-			 User admin = new User();
-			 admin.setCpr(rs.getString(7));
-			    Petition databasepetition = new Petition(rs.getInt(1),rs.getString(2),user,rs.getDate(4),rs.getString(5),rs.getBoolean(6),admin);
+			    Petition databasepetition = new Petition(rs.getInt(1),rs.getString(2),user,rs.getString(4),rs.getString(5),rs.getBoolean(6));
 				System.out.println("Petition is in database");
 				return databasepetition;
 				
@@ -275,6 +270,369 @@ public  Petition createPetition(Petition petition)
 	return null;
     
 }
+
+@Override
+public Petition approvePetition(Petition petition) 
+{
+	String sql = "update Petition set approved=? where petition.peid=?";
+	String sql1 ="Select * from Petition where petition.peid=?";
+	
+	try (Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement pst = con.prepareStatement(sql))
+	{
+		pst.setBoolean(1, petition.isApproved());
+		pst.setInt(2,petition.getPeid());
+		ResultSet rs = pst.executeQuery();
+		 if (rs.next()) 
+		 {
+			 pst.executeUpdate();
+			 System.out.println("Petition is aproved");
+		 }
+		
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	try (Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement pst = con.prepareStatement(sql1))
+	{
+		pst.setInt(1, petition.getPeid());
+		ResultSet rs = pst.executeQuery();
+		 if (rs.next()) {
+               
+			 User user = new User();
+			 user.setCpr(rs.getString(3));
+			    Petition databasepetition = new Petition(rs.getInt(1),rs.getString(2),user,rs.getString(4),rs.getString(5),rs.getBoolean(6));
+				System.out.println("Petition is in database");
+				return databasepetition;
+				
+           }
+		 else
+		 {
+			 return null;
+		 }
+
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	return null;
+}
+
+@Override
+public ArrayList<Petition> getApprovedPetition() 
+{
+	String sql = "Select * from Petition where approved=?";
+	
+	   ArrayList<Petition>  list = new ArrayList<>();
+	
+	try (Connection con = DriverManager.getConnection(url, username, password);
+         PreparedStatement pst = con.prepareStatement(sql))
+	{
+		pst.setBoolean(1, true);
+		boolean isResult = pst.execute();
+
+     do {
+         try (ResultSet rs = pst.getResultSet()) {
+
+             while (rs.next()) {
+             
+            
+               User user = new User();
+				 user.setCpr(rs.getString(3));
+				  Petition databasepetition = new Petition(rs.getInt(1),rs.getString(2),user,rs.getString(4),rs.getString(5),rs.getBoolean(6));
+               list.add(databasepetition);
+               System.out.println("Post added to list");
+             }
+
+             isResult = pst.getMoreResults();
+         }
+     } while (isResult);
+     System.out.println(list.size());
+     return list;
+     
+
+
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	return null;
+
+}
+
+@Override
+public ArrayList<Petition> getUnApprovedPetition() 
+{
+	String sql = "Select * from Petition where approved=?";
+	
+	   ArrayList<Petition>  list = new ArrayList<>();
+	
+	try (Connection con = DriverManager.getConnection(url, username, password);
+      PreparedStatement pst = con.prepareStatement(sql))
+	{
+		pst.setBoolean(1, false);
+		boolean isResult = pst.execute();
+
+  do {
+      try (ResultSet rs = pst.getResultSet()) {
+
+          while (rs.next()) {
+          
+         
+            User user = new User();
+				 user.setCpr(rs.getString(3));
+				  Petition databasepetition = new Petition(rs.getInt(1),rs.getString(2),user,rs.getString(4),rs.getString(5),rs.getBoolean(6));
+            list.add(databasepetition);
+            System.out.println("Post added to list");
+          }
+
+          isResult = pst.getMoreResults();
+      }
+  } while (isResult);
+  System.out.println(list.size());
+  return list;
+  
+
+
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	return null;
+	
+}
+
+@Override
+public User changeCity(User user, String city) 
+{
+	
+	String sql = "update UserDetails set city=? where cpr=?";
+	String sql1 = "Select *  from UserDetails where cpr=?" ;
+	
+	try (Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement pst = con.prepareStatement(sql))
+	{
+		pst.setString(1, city);
+		pst.setString(2, user.getCpr());
+		ResultSet rs = pst.executeQuery();
+		 if (rs.next()) 
+		 {
+			 pst.executeUpdate();
+			 System.out.println("City has been updated");
+		 }
+		
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	try (Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement pst = con.prepareStatement(sql1)) 
+	{
+		pst.setString(1, user.getCpr());
+		ResultSet rs = pst.executeQuery();
+		 if (rs.next()) {
+               
+				User databaseuser = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6));
+				return databaseuser;
+				
+				
+           }
+		 else
+		 {
+			 return null;
+		 }
+		 
+	
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	
+	
+	return null;
+}
+
+@Override
+public User changePassword(User user, String password)
+{
+	
+	String sql = "update UserDetails set password=? where cpr=?";
+	String sql1 = "Select *  from UserDetails where cpr=?" ;
+	
+	try (Connection con = DriverManager.getConnection(url, username, this.password);
+            PreparedStatement pst = con.prepareStatement(sql))
+	{
+		pst.setString(1, password);
+		pst.setString(2, user.getCpr());
+		ResultSet rs = pst.executeQuery();
+		 if (rs.next()) 
+		 {
+			 System.out.println("Password has been updated");
+			 pst.executeUpdate();
+			 
+		 }
+		
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	try (Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement pst = con.prepareStatement(sql1)) 
+	{
+		pst.setString(1, user.getCpr());
+		ResultSet rs = pst.executeQuery();
+		 if (rs.next()) {
+               
+				User databaseuser = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6));
+				return databaseuser;
+				
+				
+           }
+		 else
+		 {
+			 return null;
+		 }
+		 
+	
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	
+	
+	
+	return null;
+}
+
+@Override
+public User changeRole(User user, String role) 
+{
+	String sql = "update UserDetails set role=? where cpr=?";
+	String sql1 = "Select *  from UserDetails where cpr=?" ;
+	
+	try (Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement pst = con.prepareStatement(sql))
+	{
+		pst.setString(1, role);
+		pst.setString(2, user.getCpr());
+		ResultSet rs = pst.executeQuery();
+		 if (rs.next()) 
+		 {
+			 System.out.println("Role has been updated");
+			 pst.executeUpdate();
+			 
+		 }
+		
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	try (Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement pst = con.prepareStatement(sql1)) 
+	{
+		pst.setString(1, user.getCpr());
+		ResultSet rs = pst.executeQuery();
+		 if (rs.next()) {
+               
+				User databaseuser = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6));
+				return databaseuser;
+				
+				
+           }
+		 else
+		 {
+			 return null;
+		 }
+		 
+	
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	
+	
+	
+	return null;
+}
+
+@Override
+public User changeEmail(User user, String email) 
+{
+	String sql = "update UserDetails set email=? where cpr=?";
+	String sql1 = "Select *  from UserDetails where cpr=?" ;
+	
+	try (Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement pst = con.prepareStatement(sql))
+	{
+		pst.setString(1, email);
+		pst.setString(2, user.getCpr());
+		ResultSet rs = pst.executeQuery();
+		 if (rs.next()) 
+		 {
+			 System.out.println("Email has been updated");
+			 pst.executeUpdate();
+			 
+		 }
+		
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	try (Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement pst = con.prepareStatement(sql1)) 
+	{
+		pst.setString(1, user.getCpr());
+		ResultSet rs = pst.executeQuery();
+		 if (rs.next()) {
+               
+				User databaseuser = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6));
+				return databaseuser;
+				
+				
+           }
+		 else
+		 {
+			 return null;
+		 }
+		 
+	
+	}
+	catch(SQLException ex)
+	{
+		System.out.println(ex.getMessage());
+	}
+	
+	
+	
+	
+	return null;
+}
+
+
+
+
 
 
 }

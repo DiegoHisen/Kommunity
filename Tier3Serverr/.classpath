@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="E:/NewTier3/Tier3Serverr/gson-2.6.2.jar"/>
 	<classpathentry kind="lib" path="E:/NewTier3/Tier3Serverr/postgresql-42.2.5.jar"/>
+	<classpathentry kind="lib" path="E:/NewTier3/Tier3Serverr/junit-4.13-beta-1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
